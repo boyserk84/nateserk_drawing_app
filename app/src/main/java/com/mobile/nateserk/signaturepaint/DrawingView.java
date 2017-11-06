@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.os.Debug;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -42,6 +43,28 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback {
         _drawPaint.setStyle(Paint.Style.STROKE);
         _drawPaint.setStrokeJoin(Paint.Join.ROUND);
         _drawPaint.setStrokeCap(Paint.Cap.ROUND);
+    }
+
+    public void ResetDrawingBoardView()
+    {
+        _path.reset();
+        _drawPaint.reset();
+        SetupDrawingBoard();
+
+        // NOTE: This needs to be called multiple times to ensure previous frames are cleared out.
+        ResetCanvas();
+        ResetCanvas();
+        ResetCanvas();
+        ResetCanvas();
+    }
+
+    private void ResetCanvas()
+    {
+        Canvas canvas = getHolder().lockCanvas();
+        if (canvas!=null) {
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY);
+            getHolder().unlockCanvasAndPost(canvas);
+        }
     }
 
     @Override

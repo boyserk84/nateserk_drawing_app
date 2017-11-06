@@ -18,6 +18,25 @@ import android.view.ViewGroup;
 
 public class DrawingFragment extends Fragment {
 
+    private final String RESET_STATE = "reset";
+    private final String DRAW_STATE = "draw";
+    private final String PROCESS_STATE = "process";
+    private final String DONE_STATE = "command";
+
+    private String _state = DRAW_STATE;
+
+
+    public void ResetDrawingBoard() {
+        _state = RESET_STATE;
+        DrawingView view = (DrawingView) this.getView().findViewById(R.id.drawingBoard);
+
+        if (view !=null) {
+            Log.d("DrawingFragment Debug", "Reset is called");
+            view.ResetDrawingBoardView();
+        }
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

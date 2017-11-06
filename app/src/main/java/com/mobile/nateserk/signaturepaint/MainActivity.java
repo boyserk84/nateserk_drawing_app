@@ -22,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
+
+                    DrawingFragment fragment = (DrawingFragment) getFragmentManager().findFragmentById(R.id.drawingBoardFragment);
+
+                    if (fragment!=null) {
+                        fragment.ResetDrawingBoard();
+                    }
+
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
