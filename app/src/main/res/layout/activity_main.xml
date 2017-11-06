@@ -18,10 +18,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.mobile.nateserk.signaturepaint.DrawingView
-        android:id="@+id/drawingBoard"
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:name="com.mobile.nateserk.signaturepaint.DrawingFragment"
+        android:id="@+id/drawingBoardFragment"
+    />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

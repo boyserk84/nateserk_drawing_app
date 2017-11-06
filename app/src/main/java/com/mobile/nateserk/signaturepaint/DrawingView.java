@@ -98,7 +98,6 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder)
     {
-        _path = null;
-        _drawPaint = null;
+        Log.d("DEBUG","Surface Destroyed!");
     }
 }
