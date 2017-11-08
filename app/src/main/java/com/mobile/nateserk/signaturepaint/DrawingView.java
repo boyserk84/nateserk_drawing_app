@@ -1,6 +1,7 @@
 package com.mobile.nateserk.signaturepaint;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,6 +27,13 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback {
 
     private Paint _drawPaint = new Paint();
 
+    private Bitmap _mBitmap = null;
+    private Canvas _mCanvas = null;
+
+    public Bitmap GetBitmapFromView() {
+        return _mBitmap;
+    }
+
     public DrawingView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -33,6 +41,8 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback {
         setFocusableInTouchMode(true);
         getHolder().addCallback(this);
         SetupDrawingBoard();
+
+        //this.setDrawingCacheEnabled(true);
     }
 
     private void SetupDrawingBoard()
@@ -64,6 +74,8 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas!=null) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY);
             getHolder().unlockCanvasAndPost(canvas);
+            _mCanvas = null;
+            _mBitmap = null;
         }
     }
 
@@ -99,9 +111,22 @@ public class DrawingView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas != null) {
             canvas.drawPath(_path, _drawPaint);
             holder.unlockCanvasAndPost(canvas);
+            TryDrawingToBuffer();
         } else {
             Log.d("DEBUG","CANVAS iS NULL!");
         }
+    }
+
+    private void TryDrawingToBuffer() {
+        if (_mBitmap==null) {
+            _mBitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        if (_mCanvas==null) {
+            _mCanvas = new Canvas(_mBitmap);
+        }
+
+        _mCanvas.drawPath(_path, _drawPaint);
     }
 
     @Override

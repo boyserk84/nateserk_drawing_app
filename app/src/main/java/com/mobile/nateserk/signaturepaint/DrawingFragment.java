@@ -1,6 +1,7 @@
 package com.mobile.nateserk.signaturepaint;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -20,8 +21,6 @@ public class DrawingFragment extends Fragment {
 
     private final String RESET_STATE = "reset";
     private final String DRAW_STATE = "draw";
-    private final String PROCESS_STATE = "process";
-    private final String DONE_STATE = "command";
 
     private String _state = DRAW_STATE;
 
@@ -30,11 +29,21 @@ public class DrawingFragment extends Fragment {
         _state = RESET_STATE;
         DrawingView view = (DrawingView) this.getView().findViewById(R.id.drawingBoard);
 
-        if (view !=null) {
+        if (view != null) {
             Log.d("DrawingFragment Debug", "Reset is called");
             view.ResetDrawingBoardView();
         }
+    }
 
+    public Bitmap GetDrawnImage()
+    {
+        DrawingView view = (DrawingView) this.getView().findViewById(R.id.drawingBoard);
+
+        if (view != null) {
+            return view.GetBitmapFromView();
+        }
+
+        return null;
     }
 
     @Nullable
